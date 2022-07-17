@@ -1,11 +1,13 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import './providers/orders.dart';
 import './providers/cart.dart';
 import './screens/products_detail_screen.dart';
 import 'screens/products_overview_screen.dart';
 import './providers/products_providers.dart';
 import 'package:provider/provider.dart';
+import './screens/cart_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: Cart(),
         ),
+        ChangeNotifierProvider.value(value: Orders())
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -38,7 +41,8 @@ class MyApp extends StatelessWidget {
         routes: {
           // שאתה רושם / זה אוטמטית מתחיל את האפלקציה  בעמוד הזה
           '/': ((ctx) => ProductsOverview()),
-          ProductsDetail.routeName: (context) => ProductsDetail(),
+          ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+          CartScreen.routeName: ((context) => CartScreen()),
         },
       ),
     );

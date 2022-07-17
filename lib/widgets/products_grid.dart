@@ -22,6 +22,7 @@ class productsGrid extends StatelessWidget {
     }
 
     return GridView.builder(
+      
       padding: EdgeInsets.all(10),
       itemCount: products.length,
       itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
