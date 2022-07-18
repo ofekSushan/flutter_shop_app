@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/widgets/app_drawer.dart';
 import '../widgets/mainAppBar.dart';
+import '../providers/orders.dart';
+import '../widgets/order_item.dart';
 
 class OrderScreen extends StatelessWidget {
-  const OrderScreen({Key? key}) : super(key: key);
-
+  static const routeName="/orders"; 
   @override
   Widget build(BuildContext context) {
-    final appbar = AppBar(
-      title: Text(
-        'Your Cart',
-        style: TextStyle(color: Theme.of(context).colorScheme.primary),
-      ),
-    );
+    final ordersData = Provider.of<Orders>(context);
 
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: MainAppBar(
-        title: "test",
-        actions: [],
+        title: "Your Cart",
+      ),
+      body: ListView.builder(
+        itemCount: ordersData.orders.length,
+        itemBuilder: (ctx, index) =>
+            OrderItemWid(order: ordersData.orders[index]),
       ),
     );
   }
