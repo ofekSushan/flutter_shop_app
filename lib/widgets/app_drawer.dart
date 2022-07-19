@@ -33,16 +33,6 @@ class AppDrawer extends StatelessWidget {
             title: "test",
             implyLeading: false,
           ),
-           FloatingActionButton(
-                onPressed: () {
-                  isLightmod
-                      ? themeChanger.setTheme(ThemeMode.dark)
-                      : themeChanger.setTheme(ThemeMode.light);
-                },
-                child: Icon(
-                  isLightmod ? Icons.dark_mode : Icons.light_mode,
-                ),
-              ),
           ...buildListtTile(
             "Shop",
             Icons.shop,
@@ -53,7 +43,21 @@ class AppDrawer extends StatelessWidget {
             Icons.shopping_cart,
             () => Navigator.of(context)
                 .pushReplacementNamed(OrderScreen.routeName),
-          )
+          ),
+          Container(
+            alignment: Alignment.bottomLeft,
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                isLightmod
+                    ? themeChanger.setTheme(ThemeMode.dark)
+                    : themeChanger.setTheme(ThemeMode.light);
+              },
+              label: isLightmod ? Text("Dark Mode") : Text("Light Mode"),
+              icon: Icon(
+                isLightmod ? Icons.dark_mode : Icons.light_mode,
+              ),
+            ),
+          ),
         ],
       ),
     );
