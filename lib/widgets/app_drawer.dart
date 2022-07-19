@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/orders_screen.dart';
 import 'package:shop_app/widgets/mainAppBar.dart';
+import '../providers/theme.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   List<Widget> buildListtTile(
@@ -22,6 +24,8 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeChanger = Provider.of<ThemeChanger>(context);
+    bool isLightmod = themeChanger.isLightmod(themeChanger.themeMode);
     return Drawer(
       child: Column(
         children: [
@@ -29,21 +33,16 @@ class AppDrawer extends StatelessWidget {
             title: "test",
             implyLeading: false,
           ),
-          Container(
-            height: 120,
-            width: double.infinity,
-            padding: EdgeInsets.all(20),
-            alignment: Alignment.centerLeft,
-            decoration:
-                BoxDecoration(color: Theme.of(context).colorScheme.primary),
-            child: Text(
-              "Best Shop",
-              style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                  fontSize: 30,
-                  color: Theme.of(context).primaryColor),
-            ),
-          ),
+           FloatingActionButton(
+                onPressed: () {
+                  isLightmod
+                      ? themeChanger.setTheme(ThemeMode.dark)
+                      : themeChanger.setTheme(ThemeMode.light);
+                },
+                child: Icon(
+                  isLightmod ? Icons.dark_mode : Icons.light_mode,
+                ),
+              ),
           ...buildListtTile(
             "Shop",
             Icons.shop,

@@ -39,7 +39,7 @@ class CartScreen extends StatelessWidget {
                     TextButton(
                         onPressed: () {
                           Provider.of<Orders>(context, listen: false).addOrder(
-                              cart.items.values.toList(), cart.totalAmount());
+                              cart.ChosenItems.values.toList(), cart.totalAmount());
                           cart.ClearCart();
                         }, 
                         child: const Text(
@@ -55,13 +55,13 @@ class CartScreen extends StatelessWidget {
             ),
             Expanded(
                 child: ListView.builder(
-              itemCount: cart.items.length,
+              itemCount: cart.ChosenItems.length,
               itemBuilder: (ctx, index) => CartItemWId(
-                id: cart.items.values.toList()[index].id,
-                productId: cart.items.keys.toList()[index],
-                price: cart.items.values.toList()[index].price,
-                quantity: cart.items.values.toList()[index].quantity,
-                title: cart.items.values.toList()[index].title,
+                id: cart.ChosenItems.values.toList()[index].id,
+                productId: cart.ChosenItems.keys.toList()[index],
+                price: cart.ChosenItems.values.toList()[index].price,
+                quantity: cart.ChosenItems.values.toList()[index].quantity,
+                title: cart.ChosenItems.values.toList()[index].title,
               ),
             ))
           ],

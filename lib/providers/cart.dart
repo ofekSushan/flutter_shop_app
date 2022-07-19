@@ -17,7 +17,7 @@ class CartItem {
 class Cart with ChangeNotifier {
   Map<String, CartItem> _items = {};
 
-  Map<String, CartItem> get items {
+  Map<String, CartItem> get ChosenItems {
     return {..._items};
   }
 
@@ -32,6 +32,27 @@ class Cart with ChangeNotifier {
     });
 
     return total;
+  }
+
+  void UndoProduct(String ProductID) {
+    if (!_items.containsKey(ProductID)) {
+      return;
+    }
+    // אם המוצר נמצא פעמים ואני מוחק רק אחד
+    if (_items[ProductID]!.quantity > 1) {
+      _items.update(
+          ProductID,
+          (existingCartItem) => CartItem(
+              id: existingCartItem.id,
+              title: existingCartItem.title,
+              quantity: existingCartItem.quantity - 1,
+              price: existingCartItem.price));
+    }
+
+    if (_items[ProductID]!.quantity == 1) {
+      _items.remove(ProductID);
+    }
+    notifyListeners();
   }
 
   void addItem({
