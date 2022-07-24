@@ -5,6 +5,7 @@ import 'package:shop_app/screens/orders_screen.dart';
 import 'package:shop_app/widgets/mainAppBar.dart';
 import '../providers/theme.dart';
 import 'package:provider/provider.dart';
+import '../screens/user_products_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   List<Widget> buildListtTile(
@@ -43,6 +44,12 @@ class AppDrawer extends StatelessWidget {
             Icons.shopping_cart,
             () => Navigator.of(context)
                 .pushReplacementNamed(OrderScreen.routeName),
+          ),
+          ...buildListtTile(
+            "Manage Products",
+            Icons.edit,
+            () => Navigator.of(context)
+                .pushReplacementNamed(UserProductsScreen.routeName),
           ),
           Container(
             alignment: Alignment.bottomLeft,

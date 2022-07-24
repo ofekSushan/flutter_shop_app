@@ -12,7 +12,7 @@ class ThemeChanger with ChangeNotifier {
   bool isLightmod(themeMode) {
     if (themeMode == ThemeMode.light) {
       return true;
-    } else
+    }
       return false;
   }
 }

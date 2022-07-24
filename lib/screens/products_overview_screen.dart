@@ -11,7 +11,6 @@ import '../widgets/mainAppBar.dart';
 enum filterOptins { Favorites, All }
 
 class ProductsOverview extends StatefulWidget {
-  const ProductsOverview({Key? key}) : super(key: key);
 
   @override
   State<ProductsOverview> createState() => _ProductsOverviewState();
