@@ -55,7 +55,7 @@ class AppDrawer extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             child: FloatingActionButton.extended(
               onPressed: () {
-                isLightmod
+                themeChanger.themeMode == ThemeMode.light
                     ? themeChanger.setTheme(ThemeMode.dark)
                     : themeChanger.setTheme(ThemeMode.light);
               },

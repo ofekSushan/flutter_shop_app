@@ -4,6 +4,7 @@ import '../providers/cart.dart';
 import '../providers/orders.dart';
 import '../widgets/cart_item.dart';
 import '../widgets/mainAppBar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
@@ -38,10 +39,22 @@ class CartScreen extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
+                          if (cart.ChosenItems.isEmpty) {
+                            Fluttertoast.showToast(
+                                msg: "please dont be a dick",
+                                textColor: Colors.red,
+                                gravity: ToastGravity.CENTER);
+                            return;
+                          }
                           Provider.of<Orders>(context, listen: false).addOrder(
-                              cart.ChosenItems.values.toList(), cart.totalAmount());
+                              cart.ChosenItems.values.toList(),
+                              cart.totalAmount());
                           cart.ClearCart();
-                        }, 
+                          Fluttertoast.showToast(
+                              msg: "order added",
+                              textColor: Colors.green,
+                              gravity: ToastGravity.CENTER);
+                        },
                         child: const Text(
                           "Order Now",
                           style: TextStyle(color: Colors.red),
