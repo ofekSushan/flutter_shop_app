@@ -26,7 +26,6 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeChanger = Provider.of<ThemeChanger>(context);
-    bool isLightmod = themeChanger.isLightmod(themeChanger.themeMode);
     return Drawer(
       child: Column(
         children: [
@@ -59,9 +58,11 @@ class AppDrawer extends StatelessWidget {
                     ? themeChanger.setTheme(ThemeMode.dark)
                     : themeChanger.setTheme(ThemeMode.light);
               },
-              label: isLightmod ? Text("Dark Mode") : Text("Light Mode"),
+              label: themeChanger.themeMode == ThemeMode.light
+                  ? Text("Dark Mode")
+                  : Text("Light Mode"),
               icon: Icon(
-                isLightmod ? Icons.dark_mode : Icons.light_mode,
+                  themeChanger.themeMode == ThemeMode.light ? Icons.dark_mode : Icons.light_mode,
               ),
             ),
           ),

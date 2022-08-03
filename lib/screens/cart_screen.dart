@@ -41,7 +41,7 @@ class CartScreen extends StatelessWidget {
                         onPressed: () {
                           if (cart.ChosenItems.isEmpty) {
                             Fluttertoast.showToast(
-                                msg: "please dont be a dick",
+                                msg: "please add items brfore ordering",
                                 textColor: Colors.red,
                                 gravity: ToastGravity.CENTER);
                             return;

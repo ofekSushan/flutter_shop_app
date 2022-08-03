@@ -6,22 +6,38 @@ import 'package:shop_app/widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
 import '../widgets/mainAppBar.dart';
+import '../providers/products_providers.dart';
 
 // ignore: camel_case_types
 enum filterOptins { Favorites, All }
 
 class ProductsOverview extends StatefulWidget {
-
   @override
   State<ProductsOverview> createState() => _ProductsOverviewState();
 }
 
 class _ProductsOverviewState extends State<ProductsOverview> {
+  var _isLoading = false;
+
+  @override
+  void initState() {
+    setState(() {
+      _isLoading = true;
+    });
+      Provider.of<Products>(context, listen: false)
+          .fetchAndSetProdcuts()
+          .then((_) {
+            setState(() {
+              
+        _isLoading = false;
+            });
+      });
+      super.initState();
+  }
+
   bool showFavoritesOnly = false;
   @override
   Widget build(BuildContext context) {
-    // final products = Provider.of<Products>(context, listen: false);
-
     return Scaffold(
       drawer: AppDrawer(),
       appBar: MainAppBar(
@@ -62,7 +78,11 @@ class _ProductsOverviewState extends State<ProductsOverview> {
           )
         ],
       ),
-      body: productsGrid(showFavoritesOnly: showFavoritesOnly),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : productsGrid(showFavoritesOnly: showFavoritesOnly),
     );
   }
 }

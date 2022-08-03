@@ -9,10 +9,5 @@ class ThemeChanger with ChangeNotifier {
     notifyListeners();
   }
 
-  bool isLightmod(themeMode) {
-    if (themeMode == ThemeMode.light) {
-      return true;
-    }
-      return false;
-  }
+
 }

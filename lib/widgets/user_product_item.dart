@@ -24,7 +24,7 @@ class UserProductsItems extends StatelessWidget {
         child: Row(
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
               onPressed: () {
                 Navigator.of(context)
                     .pushNamed(EditProductScreen.routeName, arguments: id);
@@ -32,7 +32,7 @@ class UserProductsItems extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: () {
                 showDialog(
                     context: context,
