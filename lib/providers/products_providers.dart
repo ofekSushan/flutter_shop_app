@@ -76,7 +76,7 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> addProducts(Product product) async {
+  Future addProducts(Product product) async {
     final url =
         Uri.https("flutter-c748c-default-rtdb.firebaseio.com", "/producs.json");
     try {
@@ -126,22 +126,21 @@ class Products with ChangeNotifier {
     }
   }
 
-  void deleteProduct(String id) async {
+ 
+  Future<void> deleteProduct(String id) async {
     final url = Uri.https(
-        "flutter-c748c-default-rtdb.firebaseio.com", "/producs/${id}");
-    final exitsingProductindex = _items.indexWhere((prod) => prod.id == id);
-    Product? exitsingProduct = _items[exitsingProductindex];
-
-    http.delete(url).then((response) {
-      if (response.statusCode >= 400) {
-        throw HttpException(message: "could not delete product");
-      }
-      exitsingProduct = null;
-    }).catchError((_) {
-      _items.insert(exitsingProductindex, exitsingProduct!);
-      notifyListeners();
-    });
-    _items.removeAt(exitsingProductindex);
+          "flutter-c748c-default-rtdb.firebaseio.com", "/producs/${id}");
+    final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
+    Product? existingProduct = _items[existingProductIndex];
+    _items.removeAt(existingProductIndex);
     notifyListeners();
+    final response = await http.delete(url);
+     
+    if (response.statusCode >= 400) {
+      _items.insert(existingProductIndex, existingProduct);
+      notifyListeners();
+      throw HttpException(message: 'Could not delete product.');
+    }
+    existingProduct = null;
   }
 }

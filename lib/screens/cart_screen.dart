@@ -37,28 +37,7 @@ class CartScreen extends StatelessWidget {
                       ),
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
-                    TextButton(
-                        onPressed: () {
-                          if (cart.ChosenItems.isEmpty) {
-                            Fluttertoast.showToast(
-                                msg: "please add items brfore ordering",
-                                textColor: Colors.red,
-                                gravity: ToastGravity.CENTER);
-                            return;
-                          }
-                          Provider.of<Orders>(context, listen: false).addOrder(
-                              cart.ChosenItems.values.toList(),
-                              cart.totalAmount());
-                          cart.ClearCart();
-                          Fluttertoast.showToast(
-                              msg: "order added",
-                              textColor: Colors.green,
-                              gravity: ToastGravity.CENTER);
-                        },
-                        child: const Text(
-                          "Order Now",
-                          style: TextStyle(color: Colors.red),
-                        ))
+                    OrderButton(cart: cart)
                   ],
                 ),
               ),
@@ -79,5 +58,54 @@ class CartScreen extends StatelessWidget {
             ))
           ],
         ));
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    Key? key,
+    required this.cart,
+  }) : super(key: key);
+
+  final Cart cart;
+
+  @override
+  State<OrderButton> createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  var isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return isLoading
+        ? CircularProgressIndicator()
+        : TextButton(
+            onPressed: () async {
+              if (widget.cart.ChosenItems.isEmpty || isLoading) {
+                Fluttertoast.showToast(
+                    msg: "please add items brfore ordering",
+                    textColor: Colors.red,
+                    gravity: ToastGravity.CENTER);
+                return;
+              }
+              setState(() {
+                isLoading = true;
+              });
+              await Provider.of<Orders>(context, listen: false).addOrder(
+                  widget.cart.ChosenItems.values.toList(),
+                  widget.cart.totalAmount());
+              setState(() {
+                isLoading = false;
+              });
+              widget.cart.ClearCart();
+              Fluttertoast.showToast(
+                  msg: "order added",
+                  textColor: Colors.green,
+                  gravity: ToastGravity.CENTER);
+            },
+            child: const Text(
+              "Order Now",
+              style: TextStyle(color: Colors.red),
+            ));
   }
 }
