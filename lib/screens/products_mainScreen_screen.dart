@@ -11,12 +11,12 @@ import '../providers/products_providers.dart';
 // ignore: camel_case_types
 enum filterOptins { Favorites, All }
 
-class ProductsOverview extends StatefulWidget {
+class ProductMainScreen extends StatefulWidget {
   @override
-  State<ProductsOverview> createState() => _ProductsOverviewState();
+  State<ProductMainScreen> createState() => _ProductMainScreenState();
 }
 
-class _ProductsOverviewState extends State<ProductsOverview> {
+class _ProductMainScreenState extends State<ProductMainScreen> {
   var _isLoading = false;
 
   @override

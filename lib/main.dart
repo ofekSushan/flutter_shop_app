@@ -6,7 +6,7 @@ import 'package:shop_app/screens/orders_screen.dart';
 import './providers/orders.dart';
 import './providers/cart.dart';
 import './screens/products_detail_screen.dart';
-import 'screens/products_overview_screen.dart';
+import 'screens/products_mainScreen_screen.dart';
 import './providers/products_providers.dart';
 import 'package:provider/provider.dart';
 import './screens/cart_screen.dart';
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
             ),
             routes: {
               // שאתה רושם / זה אוטמטית מתחיל את האפלקציה  בעמוד הזה
-              '/': ((ctx) => ProductsOverview()),
+              '/': ((ctx) => ProductMainScreen()),
               ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
               CartScreen.routeName: ((context) => CartScreen()),
               OrderScreen.routeName: ((context) => OrderScreen()),

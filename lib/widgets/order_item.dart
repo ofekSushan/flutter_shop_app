@@ -34,7 +34,7 @@ class _OrderItemWidState extends State<OrderItemWid> {
                       .deleteOrder(widget.order.id);
                 } catch (error) {
                   Scaffold.showSnackBar(
-                      SnackBar(content: Text("deleteing failld")));
+                      SnackBar(content: Text("deleting failed")));
                 }
               },
             ),
