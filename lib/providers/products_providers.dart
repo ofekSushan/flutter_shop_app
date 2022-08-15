@@ -58,8 +58,13 @@ class Products with ChangeNotifier {
         Uri.https("flutter-c748c-default-rtdb.firebaseio.com", "/producs.json");
     try {
       final respone = await http.get(url);
-      final firebaseData = json.decode(respone.body) as Map<String, dynamic>;
       final List<Product> loadedProducts = [];
+      if (json.decode(respone.body) == null) {
+        _items=[];
+        return;
+      }
+      final firebaseData = json.decode(respone.body) as Map<String, dynamic>;
+
       firebaseData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
             id: prodId,
@@ -126,16 +131,15 @@ class Products with ChangeNotifier {
     }
   }
 
- 
   Future<void> deleteProduct(String id) async {
     final url = Uri.https(
-          "flutter-c748c-default-rtdb.firebaseio.com", "/producs/${id}");
+        "flutter-c748c-default-rtdb.firebaseio.com", "/producs/${id}.json");
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     Product? existingProduct = _items[existingProductIndex];
     _items.removeAt(existingProductIndex);
     notifyListeners();
     final response = await http.delete(url);
-     
+
     if (response.statusCode >= 400) {
       _items.insert(existingProductIndex, existingProduct);
       notifyListeners();

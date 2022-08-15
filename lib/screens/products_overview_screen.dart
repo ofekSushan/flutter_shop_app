@@ -21,18 +21,15 @@ class _ProductsOverviewState extends State<ProductsOverview> {
 
   @override
   void initState() {
-    setState(() {
-      _isLoading = true;
-    });
-      Provider.of<Products>(context, listen: false)
-          .fetchAndSetProdcuts()
-          .then((_) {
-            setState(() {
-              
+    _isLoading = true;
+    Provider.of<Products>(context, listen: false)
+        .fetchAndSetProdcuts()
+        .then((_) {
+      setState(() {
         _isLoading = false;
-            });
       });
-      super.initState();
+    });
+    super.initState();
   }
 
   bool showFavoritesOnly = false;

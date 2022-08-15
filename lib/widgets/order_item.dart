@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/providers/orders.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
+import 'package:provider/provider.dart';
 
 class OrderItemWid extends StatefulWidget {
   final OrderItem order;
@@ -16,13 +17,27 @@ class OrderItemWid extends StatefulWidget {
 
 class _OrderItemWidState extends State<OrderItemWid> {
   var expanded = false;
+
   @override
   Widget build(BuildContext context) {
+    final Scaffold = ScaffoldMessenger.of(context);
     return Card(
       margin: EdgeInsets.all(10),
       child: Column(
         children: [
           ListTile(
+            leading: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () async {
+                try {
+                  await Provider.of<Orders>(context, listen: false)
+                      .deleteOrder(widget.order.id);
+                } catch (error) {
+                  Scaffold.showSnackBar(
+                      SnackBar(content: Text("deleteing failld")));
+                }
+              },
+            ),
             title: Text("\$${widget.order.amount}"),
             subtitle:
                 Text(DateFormat("dd/MM/yyyy").format(widget.order.dateTime)),

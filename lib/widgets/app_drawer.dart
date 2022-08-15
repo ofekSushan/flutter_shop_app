@@ -50,19 +50,22 @@ class AppDrawer extends StatelessWidget {
             () => Navigator.of(context)
                 .pushReplacementNamed(UserProductsScreen.routeName),
           ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            child: FloatingActionButton.extended(
-              onPressed: () {
-                themeChanger.themeMode == ThemeMode.light
-                    ? themeChanger.setTheme(ThemeMode.dark)
-                    : themeChanger.setTheme(ThemeMode.light);
-              },
-              label: themeChanger.themeMode == ThemeMode.light
-                  ? Text("Dark Mode")
-                  : Text("Light Mode"),
-              icon: Icon(
-                  themeChanger.themeMode == ThemeMode.light ? Icons.dark_mode : Icons.light_mode,
+          Padding(
+            padding: const EdgeInsets.only(top:8.0),
+            child: Container(
+              alignment: Alignment.bottomLeft,
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  themeChanger.themeMode == ThemeMode.light
+                      ? themeChanger.setTheme(ThemeMode.dark)
+                      : themeChanger.setTheme(ThemeMode.light);
+                },
+                label: themeChanger.themeMode == ThemeMode.light
+                    ? Text("Dark Mode")
+                    : Text("Light Mode"),
+                icon: Icon(
+                    themeChanger.themeMode == ThemeMode.light ? Icons.dark_mode : Icons.light_mode,
+                ),
               ),
             ),
           ),
